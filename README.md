@@ -198,3 +198,35 @@ Now:
     Damage absorption from Hysteria Stacks on you is increased by 50%.
     
     Deck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by 10%.
+
+## Anarchist
+   - card 9
+     - shows correct armor regen value
+
+## Biker
+   - card 5
+     - Value Tweaks:
+       - every 10% health missing reduces kill cooldown by 0.2 seconds(up from 0.1)
+   - card 9
+     - Value Tweaks:
+       - every 10% armor missing reduces kill cooldown by 0.2 seconds(up from 0.1)
+
+## Kingpin
+   - card 1
+     - now correclty states the cooldown is reduced by 1 second for every kill
+     - removed unnecessary text explaining perk deck throwable replacements
+   - card 9
+     - Value Tweaks:
+       - every 5 health gained over maximum reduces cooldown by 1 second, the card stated this previously but actually reduced the cooldown for every 50 health gained
+
+## Tag Team
+   - card 1
+     - now states correct duration(12 seconds) and cooldown(60 seconds)
+
+## Hacker
+   - card 1
+     - removed unnecessary text explaining perk deck throwable replacements
+   - card 5
+     - now correctly states that it grants 15% dodge
+   - card 9
+     - now correctly states that it grants 15% dodge
