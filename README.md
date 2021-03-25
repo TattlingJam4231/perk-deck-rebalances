@@ -45,7 +45,7 @@
 ## Gambler Rework
 
 #### Card 1
-Before: Medical Supplies
+Before:
 
     Ammo packs you pick up also yield medical supplies and heals you for 16 to 24 health.
     
@@ -54,7 +54,7 @@ Before: Medical Supplies
     If the Gambler's current helth is lower than another player's, the heal effect on the Gambler is increased by 20%.
     Stacks up to three times.
 
-Now: Medical Supplies
+Now:
     
     Ammo packs you pick up also yield Medical Supplies.
 
@@ -64,7 +64,7 @@ Now: Medical Supplies
     You cannot pick up Medical Supplies more than once every 2.5 seconds.
 
 #### Card 3
-Before: Ammo Give Out
+Before:
 
     When you pick up ammo, you trigger an ammo pickup for 50% of normal pickup to other players in your team.
     
@@ -72,44 +72,44 @@ Before: Ammo Give Out
     
     You gain 20% more health.
 
-Now: Ammo Give Out
+Now:
 
     Medical Supplies have a 25% chance to trigger an ammo pickup for other players in your team.
 
     You gain 20% more health.
 
 #### Card 5
-Before: Sharing is Caring
+Before:
 
     When you get healed from picking up ammo packs, your teammates also get healed for 50% of the ammount.
     
     You gain 20% more health.
 
-Now: Sharing is Caring
+Now:
 
     Medical Supplies heal your teammates for 50% of the amount.
     
     You gain 20% more health.
 
 #### Card 7
-Before: More Healing 1
+Before:
 
     Increase health gained from ammo packs by additonal 8.
 
-Now: More Healing
+Now:
 
     When Medical Supplies is on cooldown, picking up ammo heals you and your teammates for 4 Health.
     
     Picking up ammo grants you 5 armor.
 
 #### Card 9
-Before: More Healing 2
+Before:
 
     Increase health gained from ammo packs by additonal 8.
     
     Deck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by 10%.
 
-Now: Just Lucky
+Now:
 
     Medical Supplies grant you 1% to 7% critical hit chance for 7.5 seconds. This effect stacks.
     Getting three 7% critical bonuses in a row triggers Lucky.
@@ -129,4 +129,72 @@ Now: Just Lucky
      - now does not use up excess stored health
    - card 5
      - Value Tweaks:
-       - dodge increase is now 25%(up from 15%)
+       - dodge increase is now 25%(up from 15%)## Gambler Rework
+
+## Maniac Rework
+
+#### Card 1
+Before:
+
+    100% of damage you deal is converted into hysteria stacks, up to 240 every 4 seconds. Max amount of stacks is 600.
+    
+    Hysteria Stacks:
+    You gain 1 damage absorption for every 30 stacks of Hysteria. Hysteria Stacks decays 60% + 80 every 8 seconds
+
+Now:
+    
+    100% of damage you deal is converted into hysteria stacks, up to 240 every 3 seconds. Max amount of stacks is 600.
+    
+    Hysteria Stacks:
+    You gain 1 damage absorption for every 30 stacks of Hysteria. Taking damage reduces Hysteria Stacks by 80, up to 240 every 3 seconds.
+    Hysteria Stacks decays 60% + 90 every 3 seconds if you haven't dealt damage for 6 seconds.
+    
+    NOTE: Damage from dots and sentry guns does not prevent decay.
+
+#### Card 3
+Before:
+
+    Members of your crew also gains the effect of your Hysteria Stacks.
+    
+    Hysteria Stacks from multiple crew members do not stack and only the stacks that gives the highest damage absorption will have an affect.
+
+Now:
+
+    While you have Hysteria Stacks, damage is reduced by 25% after absorption.
+    
+    Members of your crew gain the damage absorption effect of your Hysteria Stacks.
+    
+    Hysteria Stacks from multiple crew members do not stack and only the stacks that give the highest damage absorption will have an affect.
+
+#### Card 5
+Before:
+
+    Change the decay of your Hysteria Stacks to 60% + 40 every 8 seconds.
+
+Now:
+
+    Reduce the amount of Hysteria Stacks lost when taking damage to 60.
+
+#### Card 7
+Before:
+
+    Change the damage absorption of your Hysteria Stacks on you and your crew to 1 absorption for every 25 stacks of Hysteria.
+
+Now:
+
+    Damage reduction gained from Hysteria is increased by 10%.
+    
+    Change the damage absorption of your Hysteria Stacks on you and your crew to 1 absorption for every 25 stacks of Hysteria.
+
+#### Card 9
+Before:
+
+    Damage absorption from Hysteria Stacks on you is increased by 100%.
+    
+    Deck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by 10%.
+
+Now:
+
+    Damage absorption from Hysteria Stacks on you is increased by 50%.
+    
+    Deck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by 10%.
