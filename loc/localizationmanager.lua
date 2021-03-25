@@ -1,5 +1,20 @@
 Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
 	LocalizationManager:add_localized_strings({
+        
+        --Crew Chief-------------------------------------------------------------------------------
+        ["menu_deck1_9_desc"] =     "You and your crew will gain ##6%## max health and ##12%## stamina for each hostage up to ##4## times.\n\n" ..
+                                    "You and your crew will gain ##8%## damage for having one or more hostages.\n\n" ..
+                                    "You and your crew regenerate ##0.5%## health every ##5## seconds. You and your crew will regenerate an additional ##0.5%## health for each hostage up to ##4## times.\n\n" ..
+                                    "Note: Crew perks do not stack.\n\n" ..
+                                    "Deck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by ##10%##.",
+        
+        
+        --Muscle-----------------------------------------------------------------------------------
+        ["menu_deck2_3_desc"] =     "You are ##35%## more likely to be targeted when you are close to your crew members.\n\n" ..
+                                    "When you are within ##10## meters of a crew memeber, you recieve a ##35%## damage reduction that lasts ##7## seconds.\n\n" ..
+                                    "You gain an additional ##10%## more health.",
+
+
         --Armorer----------------------------------------------------------------------------------
         ["menu_deck3_3_desc"] =     "You gain an additional ##10%## more armor.\n\n" ..
                                     "Damage you take exceeding ##60## is reduced by ##20%##. Damage exceeding ##300## is not reduced.",
@@ -11,6 +26,29 @@ Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
                                     "Reduces the armor recovery time for you and your crew by ##10%##.\n\n" ..
                                     "Damage you take exceeding ##180## is reduced by an additional ##35%##. Damage exceeding ##300## is not reduced.\n\n" ..
                                     "Deck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by ##10%##.",
+
+
+        --Crook------------------------------------------------------------------------------------
+        ["menu_deck6_3_desc"] =     "Your chance to dodge is increased by ##10%## for ballistic vests.\n\n" ..
+                                    "Your armor is increased by ##20%## for ballistic vests.",
+
+        ["menu_deck6_5_desc"] =     "Your chance to dodge is increased by an additional ##10%## for ballistic vests.\n\n" ..
+                                    "Your armor is increased by an additional ##20%## for ballistic vests.",
+
+        ["menu_deck6_7_desc"] =     "Your chance to dodge is increased by an additional ##10%## for ballistic vests.\n\n" ..
+                                    "Your armor is increased by an additional ##25%## for ballistic vests.",
+
+
+        --Burglar----------------------------------------------------------------------------------
+        ["menu_deck7_1_desc"] =     "Your chance to dodge is increased by ##15%##.",
+
+        ["menu_deck7_5_desc"] =     "Your chance to dodge is increased by an additional ##10%##.\n\n" ..
+                                    "Your chance to be targeted while standing still and crouching is decreased by an additional ##5%##.\n\n" ..
+                                    "You pick locks ##20%## faster.",
+
+        ["menu_deck7_7_desc"] =     "Your chance to dodge is increased by an additional ##10%##.\n\n" ..
+                                    "Your chance to be targeted while standing still and crouching is decreased by an additional ##5%##.\n\n" ..
+                                    "You answer pagers ##10%## faster.",
         
         
         --Infiltrator------------------------------------------------------------------------------
@@ -19,16 +57,16 @@ Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
 		
 
         --Gambler----------------------------------------------------------------------------------
-         ["menu_deck10_1_desc"] = 	"Ammo packs you pick up also yield Medical Supplies.\n\n" ..
+        ["menu_deck10_1_desc"] = 	"Ammo packs you pick up also yield Medical Supplies.\n\n" ..
 									"Medical Supplies:\n" ..
 									"You are healed for ##16## to ##32## health when you pick up Medical Supplies. " ..
 									"This is increased by ##20%## on the Gambler for every player that has more health than the Gambler. " ..
 									"You cannot pick up Medical Supplies more than once every ##2.5## seconds.",
 		
-		["menu_deck10_3_desc"] = 	"When you pick up Medical Supplies, you trigger an ammo pickup for ##25%## of normal pickup to other players in your team.\n\n" ..
+		["menu_deck10_3_desc"] = 	"Medical Supplies have ##25%## chance to trigger an ammo pickup for other players in your team.\n\n" ..
 									"You gain ##20%## more health.",
 
-        ["menu_deck10_5_desc"] = 	"When you pick up Medical Supplies, your teammates also get healed for ##50%## of the ammount.\n\n" ..
+        ["menu_deck10_5_desc"] = 	"Medical Supplies heal your teammates for ##50%## of the ammount.\n\n" ..
 									"You gain ##20%## more health.",
 
 		["menu_deck10_7"] = 		"More Healing",
@@ -36,10 +74,10 @@ Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
 									"Picking up ammo grants you ##5## armor.",
 
         ["menu_deck10_9"] = 		"Just Lucky",
-		["menu_deck10_9_desc"] = 	"When you pick up Medical Supplies, you gain ##0%## to ##7%## critical hit chance for ##7.5## seconds. " ..
-									"This effect stacks. Getting three ##7%## critical bonuses in a row triggers Lucky." ..
+		["menu_deck10_9_desc"] = 	"Medical Supplies grant you ##1%## to ##7%## critical hit chance for ##7.5## seconds. " ..
+									"This effect stacks. Getting three ##7%## critical bonuses in a row triggers Lucky.\n\n" ..
 									"Lucky:\n" ..
-									"You gain ##30%## critical hit chance for ##15## seconds. This effect overrides all other critical bonuses from Gambler.\n\n" ..
+									"You gain ##30%## critical hit chance for ##60## seconds. This effect overrides all other critical bonuses from Gambler.\n\n" ..
 									"Deck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by ##10%##.",
         
         
@@ -52,12 +90,12 @@ Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
     
         --Ex-President-----------------------------------------------------------------------------
         ["menu_deck13_5_desc"] =    "Increases the maximum health that can be stored by ##50%##.\n\n" ..
-                                    "You gain ##10%## more health.\n\nYour chance to dodge is increased by ##15%##.",
+                                    "You gain ##10%## more health.\n\nYour chance to dodge is increased by ##25%##.",
 		
 
         --Maniac-----------------------------------------------------------------------------------
         ["menu_deck14_1_desc"] =    "##100%## of damage you deal is converted into hysteria stacks, up to ##240## every ##3## seconds. Max amount of stacks is ##600##.\n\n" ..
-                                    "Hysteria Stacks\n" ..
+                                    "Hysteria Stacks:\n" ..
                                     "You gain ##1## damage absorption for every ##30## stacks of Hysteria. Taking damage reduces Hysteria Stacks by ##80##, up to ##240## every ##3## seconds. " ..
                                     "Hysteria Stacks decays ##60% + 90## every ##3## seconds if you haven't dealt damage for ##6## seconds.\n\n" ..
                                     "NOTE: Damage from dots and sentry guns does not prevent decay.",

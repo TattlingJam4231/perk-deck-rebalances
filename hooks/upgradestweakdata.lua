@@ -1,8 +1,38 @@
-local original_player_definitions = UpgradesTweakData._player_definitions
+Hooks:PostHook(UpgradesTweakData, "init", "PDR UpgradesTweakData init", function(self)
 
-function UpgradesTweakData:_player_definitions(...)
-	original_player_definitions(self, ...)
-	
+	--Crew Chief-----------------------------------------------------------------------------------
+	self.definitions.team_hsituation_health_regen = {
+		name_id = "menu_team_hsituation_health_regen",
+		category = "team",
+		upgrade = {
+			value = 1,
+			upgrade = "hsituation_health_regen",
+			category = "health_regen"
+		}
+	}
+	self.values.team.health_regen = self.values.team.health_regen or {}
+	self.values.team.health_regen.hsituation_health_regen = {
+		0.005
+	}
+
+	--Muscle---------------------------------------------------------------------------------------
+	self.definitions.player_meat_shield_dmg_dampener = {
+		name_id = "menu_player_meat_shield_dmg_dampener",
+		category = "temporary",
+		upgrade = {
+			value = 1,
+			upgrade = "meat_shield_dmg_dampener",
+			category = "temporary"
+		}
+	}
+	self.values.temporary.meat_shield_dmg_dampener = {
+		0.65,
+		7
+	}
+	self.values.player.uncover_multiplier = {
+		1.35
+	}
+
 	--Armorer--------------------------------------------------------------------------------------
 	self.definitions.player_armorer_damage_reduction_1 = {
 		name_id = "menu_player_armorer_damage_reduction_1",
@@ -65,6 +95,32 @@ function UpgradesTweakData:_player_definitions(...)
 	self.values.player.armorer_damage_reduction_threshold_1 = {5.0}
 	self.values.player.armorer_damage_reduction_threshold_2 = {10.0}
 	self.values.player.armorer_damage_reduction_threshold_3 = {15.0}
+	
+	
+	--Crook----------------------------------------------------------------------------------------
+	self.values.player.level_2_dodge_addend = {
+		0.1,
+		0.20,
+		0.30
+	}
+	self.values.player.level_3_dodge_addend = {
+		0.1,
+		0.20,
+		0.30
+	}
+	self.values.player.level_4_dodge_addend = {
+		0.1,
+		0.20,
+		0.30
+	}
+
+
+	--Burglar--------------------------------------------------------------------------------------
+	self.values.player.tier_dodge_chance = {
+		0.15,
+		0.25,
+		0.35
+	}
 
 
 	--Gambler--------------------------------------------------------------------------------------
@@ -138,12 +194,12 @@ function UpgradesTweakData:_player_definitions(...)
 	self.values.player.loose_ammo_restore_armor = {5}
 	self.values.temporary.loose_ammo_crit_bonus = {
 		{
-			0,
+			1,
 			7
 		},
 		7.5,
 		30,
-		15
+		60
 	}
 
 
@@ -158,6 +214,21 @@ function UpgradesTweakData:_player_definitions(...)
 		}
 	}
 	self.values.temporary.shallow_grave = {}
+
+
+	--Ex-President---------------------------------------------------------------------------------
+	self.definitions.player_president_dodge_chance = {
+		name_id = "menu_player_president_dodge_chance",
+		category = "feature",
+		upgrade = {
+			value = 1,
+			upgrade = "president_dodge_chance",
+			category = "player"
+		}
+	}
+	self.values.player.president_dodge_chance = {
+		0.25
+	}
 
 	
 	--Maniac---------------------------------------------------------------------------------------
@@ -238,4 +309,4 @@ function UpgradesTweakData:_player_definitions(...)
 			1
 		}
 	}
-end
+end)

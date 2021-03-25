@@ -1,8 +1,21 @@
-Hooks:PostHook(PlayerManager, "update", "PDR pm update", function(self)
+Hooks:PostHook(PlayerManager, "update", "PDR PlayerManager update", function(self)
 	--Yakuza---------------------------------------------------------------------------------------
 	self:upd_shallow_grave()
 	--Yakuza---------------------------------------------------------------------------------------
 end)
+
+original_function = PlayerManager.critical_hit_chance
+function PlayerManager:critical_hit_chance(detection_risk)
+	local multiplier = original_function(self, detection_risk)
+
+	--Gambler--------------------------------------------------------------------------------------
+	if self:has_category_upgrade("temporary", "loose_ammo_crit_bonus") then
+		multiplier = multiplier + managers.player:get_gambler_crit_bonus()
+	end
+	--Gambler--------------------------------------------------------------------------------------
+
+	return multiplier
+end
 
 function PlayerManager:_update_timers(t)
 	local timers_copy = table.map_copy(self._timers)
@@ -25,6 +38,125 @@ function PlayerManager:_update_timers(t)
 	--Gambler--------------------------------------------------------------------------------------
 end
 
+function PlayerManager:health_regen()
+	local health_regen = tweak_data.player.damage.HEALTH_REGEN
+
+
+	--Crew Chief-----------------------------------------------------------------------------------
+	health_regen = health_regen + self:get_crew_chief_addend()
+	--Crew Chief-----------------------------------------------------------------------------------
+
+	health_regen = health_regen + self:temporary_upgrade_value("temporary", "wolverine_health_regen", 0)
+	health_regen = health_regen + self:get_hostage_bonus_addend("health_regen")
+	health_regen = health_regen + self:upgrade_value("player", "passive_health_regen", 0)
+
+	return health_regen
+end
+
+function PlayerManager:damage_reduction_skill_multiplier(damage_type)
+	local multiplier = 1
+
+
+	--Muscle---------------------------------------------------------------------------------------
+	multiplier = multiplier * self:temporary_upgrade_value("temporary", "meat_shield_dmg_dampener", 1)
+	--Muscle---------------------------------------------------------------------------------------
+
+
+	multiplier = multiplier * self:temporary_upgrade_value("temporary", "dmg_dampener_outnumbered", 1)
+	multiplier = multiplier * self:temporary_upgrade_value("temporary", "dmg_dampener_outnumbered_strong", 1)
+	multiplier = multiplier * self:temporary_upgrade_value("temporary", "dmg_dampener_close_contact", 1)
+	multiplier = multiplier * self:temporary_upgrade_value("temporary", "revived_damage_resist", 1)
+	multiplier = multiplier * self:upgrade_value("player", "damage_dampener", 1)
+	multiplier = multiplier * self:upgrade_value("player", "health_damage_reduction", 1)
+	multiplier = multiplier * self:temporary_upgrade_value("temporary", "first_aid_damage_reduction", 1)
+	multiplier = multiplier * self:temporary_upgrade_value("temporary", "revive_damage_reduction", 1)
+	multiplier = multiplier * self:get_hostage_bonus_multiplier("damage_dampener")
+	multiplier = multiplier * self._properties:get_property("revive_damage_reduction", 1)
+	multiplier = multiplier * self._temporary_properties:get_property("revived_damage_reduction", 1)
+	local dmg_red_mul = self:team_upgrade_value("damage_dampener", "team_damage_reduction", 1)
+
+	if self:has_category_upgrade("player", "passive_damage_reduction") then
+		local health_ratio = self:player_unit():character_damage():health_ratio()
+		local min_ratio = self:upgrade_value("player", "passive_damage_reduction")
+
+		if health_ratio < min_ratio then
+			dmg_red_mul = dmg_red_mul - (1 - dmg_red_mul)
+		end
+	end
+
+	multiplier = multiplier * dmg_red_mul
+
+	if damage_type == "melee" then
+		multiplier = multiplier * managers.player:upgrade_value("player", "melee_damage_dampener", 1)
+	end
+
+	local current_state = self:get_current_state()
+
+	if current_state and current_state:_interacting() then
+		multiplier = multiplier * managers.player:upgrade_value("player", "interacting_damage_multiplier", 1)
+	end
+
+	return multiplier
+end
+
+function PlayerManager:skill_dodge_chance(running, crouching, on_zipline, override_armor, detection_risk)
+	local chance = self:upgrade_value("player", "passive_dodge_chance", 0)
+	local dodge_shot_gain = self:_dodge_shot_gain()
+
+	for _, smoke_screen in ipairs(self._smoke_screen_effects or {}) do
+		if smoke_screen:is_in_smoke(self:player_unit()) then
+			if smoke_screen:mine() then
+				chance = chance * self:upgrade_value("player", "sicario_multiplier", 1)
+				dodge_shot_gain = dodge_shot_gain * self:upgrade_value("player", "sicario_multiplier", 1)
+			else
+				chance = chance + smoke_screen:dodge_bonus()
+			end
+		end
+	end
+
+	chance = chance + dodge_shot_gain
+	chance = chance + self:upgrade_value("player", "tier_dodge_chance", 0)
+
+
+	--Ex-President---------------------------------------------------------------------------------
+	chance = chance + self:upgrade_value("player", "president_dodge_chance", 0)
+	--Ex-President---------------------------------------------------------------------------------
+
+
+
+	if running then
+		chance = chance + self:upgrade_value("player", "run_dodge_chance", 0)
+	end
+
+	if crouching then
+		chance = chance + self:upgrade_value("player", "crouch_dodge_chance", 0)
+	end
+
+	if on_zipline then
+		chance = chance + self:upgrade_value("player", "on_zipline_dodge_chance", 0)
+	end
+
+	local detection_risk_add_dodge_chance = managers.player:upgrade_value("player", "detection_risk_add_dodge_chance")
+	chance = chance + self:get_value_from_risk_upgrade(detection_risk_add_dodge_chance, detection_risk)
+	chance = chance + self:upgrade_value("player", tostring(override_armor or managers.blackmarket:equipped_armor(true, true)) .. "_dodge_addend", 0)
+	chance = chance + self:upgrade_value("team", "crew_add_dodge", 0)
+	chance = chance + self:temporary_upgrade_value("temporary", "pocket_ecm_kill_dodge", 0)
+
+	return chance
+end
+
+--Crew Chief---------------------------------------------------------------------------------------
+function PlayerManager:get_crew_chief_addend()
+	local health_regen = 0
+	local hostages = managers.groupai and managers.groupai:state():hostage_count() or 0
+	local minions = self:num_local_minions() or 0
+	hostages = math.min(hostages + minions, 4)
+	local addend = self:team_upgrade_value("health_regen", "hsituation_health_regen")
+
+	health_regen = health_regen + (addend * (1 + hostages))
+
+	return health_regen
+end
 
 --Armorer------------------------------------------------------------------------------------------
 function PlayerManager:armorer_damage_reduction(damage)
