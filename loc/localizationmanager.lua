@@ -133,6 +133,14 @@ Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
         --[[ ["menu_deck17_9_desc"] =   "You gain ##40%## more health.\n\n" ..
                                     "For every ##50## points of health gained during the Injector effect while at maximum health, the recharge time of the injector is reduced by ##1## second.\n\n" ..
                                     "Deck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by ##10%##.", ]]
+        
+        
+        --Sicario----------------------------------------------------------------------------------
+        ["menu_deck18_1_desc"] =    "Unlocks and equips the thowable Smoke Bomb.\n\n" ..
+                                    "When deployed, the smoke bomb createa a smoke screen that lasts ##10## seconds. " ..
+                                    "While standing inside the smoke screen, you and any of your allies automatically avoid ##50%## of all bullets. " ..
+                                    "Any enemies that stand in the smoke will see their accuracy reduced by ##50%##.\n\n" ..
+                                    "You can carry up to ##2## smoke bombs. You replenish ##1## smoke bomb every ##45## seconds, this is lessened by ##1## second per enemy killed.",
 		
         
         --Stoic------------------------------------------------------------------------------------

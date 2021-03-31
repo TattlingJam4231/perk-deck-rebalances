@@ -335,6 +335,57 @@ function PlayerDamage:_calc_armor_damage(attack_data)
 	return health_subtracted
 end
 
+function PlayerDamage:_regenerate_armor(no_sound)
+	if self._unit:sound() and not no_sound then
+		self._unit:sound():play("shield_full_indicator")
+	end
+
+	self._regenerate_speed = nil
+
+	self:set_armor(self:_max_armor())
+	self:_send_set_armor()
+
+
+	--Yakuza---------------------------------------------------------------------------------------
+	managers.player:activate_shallow_grave_revive()
+	--Yakuza---------------------------------------------------------------------------------------
+
+
+	self._current_state = nil
+end
+
+function PlayerDamage:_on_enter_swansong_event()
+	self:_remove_on_damage_event()
+	
+
+	--Yakuza---------------------------------------------------------------------------------------
+	self._block_shallow_grave = true
+	--Yakuza---------------------------------------------------------------------------------------
+
+
+	self._block_medkit_auto_revive = true
+	self.swansong = true
+
+	if Network:is_client() then
+		managers.network:session():send_to_host("sync_player_swansong", self._unit, true)
+	else
+		managers.network:session():send_to_peers("sync_swansong_hud", self._unit, managers.network:session():local_peer():id())
+	end
+end
+
+function PlayerDamage:_on_revive_event()
+	self:_add_on_damage_event()
+	
+
+	--Yakuza---------------------------------------------------------------------------------------
+	self._block_shallow_grave = false
+	--Yakuza---------------------------------------------------------------------------------------
+
+
+	self._block_medkit_auto_revive = false
+	self.swansong = nil
+end
+
 function PlayerDamage:_check_bleed_out(can_activate_berserker, ignore_movement_state)
 	if self:get_real_health() == 0 and not self._check_berserker_done then
 		if self._unit:movement():zipline_unit() then
@@ -353,13 +404,12 @@ function PlayerDamage:_check_bleed_out(can_activate_berserker, ignore_movement_s
 
 
 		--Yakuza-----------------------------------------------------------------------------------
-		if managers.player:has_category_upgrade("temporary", "shallow_grave") and not managers.player:active_shallow_grave() then
+		if not self._block_shallow_grave and managers.player:has_category_upgrade("temporary", "shallow_grave") and not managers.player:active_shallow_grave() then
 			local player_armor = managers.blackmarket:equipped_armor(true, true)
 			local armors_allowed = {"level_2", "level_3", "level_4"--[[ , "level_5", "level_6", "level_7" ]]}
 			
 			if table.contains(armors_allowed, player_armor) then
 				self._can_take_dmg_timer = managers.player:activate_shallow_grave()
-				self:set_health(0.1)
 				return
 			end
 		end

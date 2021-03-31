@@ -1,0 +1,5 @@
+<mod name="Perk Deck Rebalances Developer" min_lib_ver="3.38">
+    <AddFiles directory="assets">
+        <effect path="effects\particles\explosions\smoke_screen"/>
+    </AddFiles>
+</mod>

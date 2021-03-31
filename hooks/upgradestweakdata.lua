@@ -309,4 +309,13 @@ Hooks:PostHook(UpgradesTweakData, "init", "PDR UpgradesTweakData init", function
 			1
 		}
 	}
+
+
+	--Sicario--------------------------------------------------------------------------------------
+	self.values.player.dodge_shot_gain = {
+		{
+			0.2,
+			4
+		}
+	}
 end)
