@@ -565,7 +565,7 @@ end
 --Sicario-------------------------------------------------------------------------------------------
 function PlayerManager:_dodge_shot_gain(gain_value)
 	self.last_dodge_time = self.last_dodge_time or 0
-	local cooldown = self:upgrade_value("player", "dodge_shot_gain")[2]
+	local cooldown = self:has_category_upgrade("player", "dodge_shot_gain") and self:upgrade_value("player", "dodge_shot_gain")[2]
 	local t = TimerManager:game():time()
 
 	if gain_value and gain_value == 0 then

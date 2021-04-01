@@ -11,9 +11,7 @@ Hooks:PostHook(UpgradesTweakData, "init", "PDR UpgradesTweakData init", function
 		}
 	}
 	self.values.team.health_regen = self.values.team.health_regen or {}
-	self.values.team.health_regen.hsituation_health_regen = {
-		0.005
-	}
+	self.values.team.health_regen.hsituation_health_regen = {0.005}
 
 	--Muscle---------------------------------------------------------------------------------------
 	self.definitions.player_meat_shield_dmg_dampener = {
@@ -26,12 +24,12 @@ Hooks:PostHook(UpgradesTweakData, "init", "PDR UpgradesTweakData init", function
 		}
 	}
 	self.values.temporary.meat_shield_dmg_dampener = {
-		0.65,
-		7
+		{
+			0.65,
+			7
+		}
 	}
-	self.values.player.uncover_multiplier = {
-		1.35
-	}
+	self.values.player.uncover_multiplier = {1.35}
 
 	--Armorer--------------------------------------------------------------------------------------
 	self.definitions.player_armorer_damage_reduction_1 = {
@@ -226,9 +224,7 @@ Hooks:PostHook(UpgradesTweakData, "init", "PDR UpgradesTweakData init", function
 			category = "player"
 		}
 	}
-	self.values.player.president_dodge_chance = {
-		0.25
-	}
+	self.values.player.president_dodge_chance = {0.25}
 
 	
 	--Maniac---------------------------------------------------------------------------------------
