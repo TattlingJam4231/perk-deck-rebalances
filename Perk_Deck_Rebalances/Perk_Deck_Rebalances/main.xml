@@ -1,0 +1,27 @@
+<mod name="Perk Deck Rebalances" min_lib_ver="3.38">
+    <AddFiles directory="assets">
+        <effect path="effects\particles\explosions\smoke_screen"/>
+    </AddFiles>
+
+    <Hooks directory="hooks">
+
+        <hooks directory="hud">
+		    <hook source_file="lib/managers/hudmanagerpd2"				file="hudmanagerpd2.lua" />
+		    <hook source_file="lib/managers/hud/hudteammate"			file="hudteammate.lua" />
+        </hooks>
+
+		<hook source_file="lib/units/pickups/ammoclip"					file="ammoclip.lua" />
+		<hook source_file="lib/units/beings/player/playerdamage"		file="playerdamage.lua" />
+		<hook source_file="lib/managers/playermanager"					file="playermanager.lua" />
+		<hook source_file="lib/units/beings/player/playermovement"		file="playermovement.lua" />
+		<hook source_file="lib/tweak_data/skilltreetweakdata"			file="skilltreetweakdata.lua" />
+		<hook source_file="lib/tweak_data/upgradestweakdata"			file="upgradestweakdata.lua" />
+		<hook source_file="lib/tweak_data/playertweakdata"				file="playertweakdata.lua" />
+		<hook source_file="lib/tweak_data/tweakdata"					file="tweakdata.lua" />
+    </Hooks>
+    
+    <Hooks directory="loc">
+		<hook source_file="lib/managers/localizationmanager"			file="localizationmanager.lua" />
+    </Hooks>
+
+</mod>

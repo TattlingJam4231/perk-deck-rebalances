@@ -49,11 +49,6 @@ Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
         ["menu_deck7_7_desc"] =     "Your chance to dodge is increased by an additional ##10%##.\n\n" ..
                                     "Your chance to be targeted while standing still and crouching is decreased by an additional ##5%##.\n\n" ..
                                     "You answer pagers ##10%## faster.",
-        
-        
-        --Infiltrator------------------------------------------------------------------------------
-        --[[ ["menu_deck8_3_desc"] =    "When you are within medium range of an enemy, you receive an additional ##8%## less damage from enemies.\n\n" ..
-                                    "The OVERDOG melee buff duration is increased by ##6## seconds.", ]]
 		
 
         --Gambler----------------------------------------------------------------------------------
@@ -129,10 +124,14 @@ Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
         ["menu_deck17_1_desc"] =    "Unlocks and equips the Kingpin Injector.\n\n" ..
                                     "While in game you can use the throwable key to activate the Injector. Activating the Injector will heal you with ##75%## of all damage taken for ##6## seconds.\n\n" ..
                                     "You can still take damage during the effect. The Injector can only be used once every ##30## seconds. The cooldown is reduced by ##1## second per enemy killed.",
-		
-        --[[ ["menu_deck17_9_desc"] =   "You gain ##40%## more health.\n\n" ..
-                                    "For every ##50## points of health gained during the Injector effect while at maximum health, the recharge time of the injector is reduced by ##1## second.\n\n" ..
-                                    "Deck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by ##10%##.", ]]
+        
+        
+        --Sicario----------------------------------------------------------------------------------
+        ["menu_deck18_1_desc"] =    "Unlocks and equips the thowable Smoke Bomb.\n\n" ..
+                                    "When deployed, the smoke bomb createa a smoke screen that lasts ##10## seconds. " ..
+                                    "While standing inside the smoke screen, you and any of your allies automatically avoid ##50%## of all bullets. " ..
+                                    "Any enemies that stand in the smoke will see their accuracy reduced by ##50%##.\n\n" ..
+                                    "You can carry up to ##2## smoke bombs. You replenish ##1## smoke bomb every ##45## seconds, this is lessened by ##1## second per enemy killed.",
 		
         
         --Stoic------------------------------------------------------------------------------------

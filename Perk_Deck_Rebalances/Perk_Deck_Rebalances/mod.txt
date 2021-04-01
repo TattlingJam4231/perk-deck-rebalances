@@ -1,57 +1,9 @@
 {
 "name" : "Perk Deck Rebalances",
 "description" : "",
-"author" : "TattlingJam",
-"image" : "oryo.png",
-"color" : "0.86 0.40 0.92",
+"author" : "TattlingJam4231",
 "version" : "1.0",
 "blt_version" : 2,
-"updates" : [
-	{
-		"identifier" : "TattlingJam4231PerkDeckRebalances",
-		"host" : {
-			"meta" : "https://github.com/TattlingJam4231/perk-deck-rebalances/raw/master/Perk_Deck_Rebalances/meta.json"
-		}
-	}
-],
- 
-"hooks" : [
-
-	{
-		"hook_id" 		: "lib/units/pickups/ammoclip",
-		"script_path" 	: "hooks/ammoclip.lua"
-	},
-
-	{
-		"hook_id" 		: "lib/units/beings/player/playerdamage",
-		"script_path" 	: "hooks/playerdamage.lua"
-	},
-
-	{
-		"hook_id" 		: "lib/managers/playermanager",
-		"script_path" 	: "hooks/playermanager.lua"
-	},
-
-	{
-		"hook_id" 		: "lib/units/beings/player/playermovement",
-		"script_path" 	: "hooks/playermovement.lua"
-	},
-
-	{
-		"hook_id" 		: "lib/tweak_data/skilltreetweakdata",
-		"script_path" 	: "hooks/skilltreetweakdata.lua"
-	},
-
-	{
-		"hook_id" 		: "lib/tweak_data/upgradestweakdata",
-		"script_path" 	: "hooks/upgradestweakdata.lua"
-	},
-
-	{
-		"hook_id"		: "lib/managers/localizationmanager",
-		"script_path" 	: "loc/localizationmanager.lua" 
-	}
-
-]
- 
+"image" : "oryo.png",
+"color" : "0.86 0.40 0.92"
 }

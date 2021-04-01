@@ -4,6 +4,145 @@ Hooks:PostHook(PlayerManager, "update", "PDR PlayerManager update", function(sel
 	--Yakuza---------------------------------------------------------------------------------------
 end)
 
+function PlayerManager:check_skills()
+	self:send_message_now("check_skills")
+	self._coroutine_mgr:clear()
+
+	self._saw_panic_when_kill = self:has_category_upgrade("saw", "panic_when_kill")
+	self._unseen_strike = self:has_category_upgrade("player", "unseen_increased_crit_chance")
+
+	if self:has_category_upgrade("pistol", "stacked_accuracy_bonus") then
+		self._message_system:register(Message.OnEnemyShot, self, callback(self, self, "_on_expert_handling_event"))
+	else
+		self._message_system:unregister(Message.OnEnemyShot, self)
+	end
+
+	if self:has_category_upgrade("pistol", "stacking_hit_damage_multiplier") then
+		self._message_system:register(Message.OnEnemyShot, "trigger_happy", callback(self, self, "_on_enter_trigger_happy_event"))
+	else
+		self._message_system:unregister(Message.OnEnemyShot, "trigger_happy")
+	end
+
+	if self:has_category_upgrade("player", "melee_damage_stacking") then
+		local function start_bloodthirst_base(weapon_unit, variant)
+			if variant ~= "melee" and not self._coroutine_mgr:is_running(PlayerAction.BloodthirstBase) then
+				local data = self:upgrade_value("player", "melee_damage_stacking", nil)
+
+				if data and type(data) ~= "number" then
+					self._coroutine_mgr:add_coroutine(PlayerAction.BloodthirstBase, PlayerAction.BloodthirstBase, self, data.melee_multiplier, data.max_multiplier)
+				end
+			end
+		end
+
+		self._message_system:register(Message.OnEnemyKilled, "bloodthirst_base", start_bloodthirst_base)
+	else
+		self._message_system:unregister(Message.OnEnemyKilled, "bloodthirst_base")
+	end
+
+	if self:has_category_upgrade("player", "messiah_revive_from_bleed_out") then
+		self._messiah_charges = self:upgrade_value("player", "messiah_revive_from_bleed_out", 0)
+		self._max_messiah_charges = self._messiah_charges
+
+		self._message_system:register(Message.OnEnemyKilled, "messiah_revive_from_bleed_out", callback(self, self, "_on_messiah_event"))
+	else
+		self._messiah_charges = 0
+		self._max_messiah_charges = self._messiah_charges
+
+		self._message_system:unregister(Message.OnEnemyKilled, "messiah_revive_from_bleed_out")
+	end
+
+	if self:has_category_upgrade("player", "recharge_messiah") then
+		self._message_system:register(Message.OnDoctorBagUsed, "recharge_messiah", callback(self, self, "_on_messiah_recharge_event"))
+	else
+		self._message_system:unregister(Message.OnDoctorBagUsed, "recharge_messiah")
+	end
+
+	if self:has_category_upgrade("player", "double_drop") then
+		self._target_kills = self:upgrade_value("player", "double_drop", 0)
+
+		self._message_system:register(Message.OnEnemyKilled, "double_ammo_drop", callback(self, self, "_on_spawn_extra_ammo_event"))
+	else
+		self._target_kills = 0
+
+		self._message_system:unregister(Message.OnEnemyKilled, "double_ammo_drop")
+	end
+
+	if self:has_category_upgrade("temporary", "single_shot_fast_reload") then
+		self._message_system:register(Message.OnLethalHeadShot, "activate_aggressive_reload", callback(self, self, "_on_activate_aggressive_reload_event"))
+	else
+		self._message_system:unregister(Message.OnLethalHeadShot, "activate_aggressive_reload")
+	end
+
+	if self:has_category_upgrade("player", "head_shot_ammo_return") then
+		self._ammo_efficiency = self:upgrade_value("player", "head_shot_ammo_return", nil)
+
+		self._message_system:register(Message.OnHeadShot, "ammo_efficiency", callback(self, self, "_on_enter_ammo_efficiency_event"))
+	else
+		self._ammo_efficiency = nil
+
+		self._message_system:unregister(Message.OnHeadShot, "ammo_efficiency")
+	end
+
+	if self:has_category_upgrade("player", "melee_kill_increase_reload_speed") then
+		self._message_system:register(Message.OnEnemyKilled, "bloodthirst_reload_speed", callback(self, self, "_on_enemy_killed_bloodthirst"))
+	else
+		self._message_system:unregister(Message.OnEnemyKilled, "bloodthirst_reload_speed")
+	end
+
+	if self:has_category_upgrade("player", "super_syndrome") then
+		self._super_syndrome_count = self:upgrade_value("player", "super_syndrome")
+	else
+		self._super_syndrome_count = 0
+	end
+
+
+	--Sicario--------------------------------------------------------------------------------------
+	if self:has_category_upgrade("player", "dodge_shot_gain") then
+		local last_dodge_time = 0
+		local dodge_gain = self:upgrade_value("player", "dodge_shot_gain")[1]
+		local cooldown = self:upgrade_value("player", "dodge_shot_gain")[2]
+
+		local function on_player_damage(attack_data)
+			if attack_data.variant == "bullet" then
+				managers.player:_dodge_shot_gain(managers.player:_dodge_shot_gain() + dodge_gain)
+			end
+		end
+
+		self:register_message(Message.OnPlayerDodge, "dodge_shot_gain_dodge", callback(self, self, "_dodge_shot_gain", 0))
+		self:register_message(Message.OnPlayerDamage, "dodge_shot_gain_damage", on_player_damage)
+	else
+		self:unregister_message(Message.OnPlayerDodge, "dodge_shot_gain_dodge")
+		self:unregister_message(Message.OnPlayerDamage, "dodge_shot_gain_damage")
+	end
+
+	if self:has_category_upgrade("player", "dodge_replenish_armor") then
+		self:register_message(Message.OnPlayerDodge, "dodge_replenish_armor", callback(self, self, "_dodge_replenish_armor"))
+	else
+		self:unregister_message(Message.OnPlayerDodge, "dodge_replenish_armor")
+	end
+
+	if managers.blackmarket:equipped_grenade() == "smoke_screen_grenade" then
+		local function speed_up_on_kill()
+			managers.player:speed_up_grenade_cooldown(1)
+		end
+
+		self:register_message(Message.OnEnemyKilled, "speed_up_smoke_grenade", speed_up_on_kill)
+	else
+		self:unregister_message(Message.OnEnemyKilled, "speed_up_smoke_grenade")
+	end
+	--Sicario--------------------------------------------------------------------------------------
+
+
+
+	self:add_coroutine("damage_control", PlayerAction.DamageControl)
+
+	if self:has_category_upgrade("snp", "graze_damage") then
+		self:register_message(Message.OnWeaponFired, "graze_damage", callback(SniperGrazeDamage, SniperGrazeDamage, "on_weapon_fired"))
+	else
+		self:unregister_message(Message.OnWeaponFired, "graze_damage")
+	end
+end
+
 original_function = PlayerManager.critical_hit_chance
 function PlayerManager:critical_hit_chance(detection_risk)
 	local multiplier = original_function(self, detection_risk)
@@ -49,6 +188,28 @@ function PlayerManager:health_regen()
 	health_regen = health_regen + self:temporary_upgrade_value("temporary", "wolverine_health_regen", 0)
 	health_regen = health_regen + self:get_hostage_bonus_addend("health_regen")
 	health_regen = health_regen + self:upgrade_value("player", "passive_health_regen", 0)
+
+
+	--Stoic----------------------------------------------------------------------------------------
+	health_regen = health_regen * self:upgrade_value("player", "damage_control_reduced_regen", 1)
+	--Stoic----------------------------------------------------------------------------------------
+
+
+	return health_regen
+end
+
+function PlayerManager:fixed_health_regen(health_ratio)
+	local health_regen = 0
+
+	if not health_ratio or not self:is_damage_health_ratio_active(health_ratio) then
+		health_regen = health_regen + self:upgrade_value("team", "crew_health_regen", 0)
+	end
+
+
+	--Stoic----------------------------------------------------------------------------------------
+	health_regen = health_regen * self:upgrade_value("player", "damage_control_reduced_regen", 1)
+	--Stoic----------------------------------------------------------------------------------------
+
 
 	return health_regen
 end
@@ -368,43 +529,73 @@ function PlayerManager:cocaine_stack_damage_reduction(damage)
 	return dmg
 end
 
+
 --Yakuza-------------------------------------------------------------------------------------------
 function PlayerManager:active_shallow_grave()
-	return self.shallow_grave
+	return self._shallow_grave
 end
 
 function PlayerManager:activate_shallow_grave()
-	self:player_unit():sound():play("perkdeck_activate")
-	self.shallow_grave = true
+	local player = self:player_unit()
+	player:sound():play("perkdeck_activate")
+	player:character_damage():set_health(0.1)
+	-- player:character_damage():set_invulnerable(true)
+	self._shallow_grave = true
 	self.shallow_grave_activate_t = TimerManager:game():time()
-	self.shallow_grave_revive = false
+	self._shallow_grave_revive = false
+	local icon = {"guis/textures/pd2/specialization/icons_atlas", {128, 448, 64, 64}--[[ {16, 464, 33, 33} ]]}
+	managers.hud:pdr_activate_teammate_ability_radial(HUDManager.PLAYER_PANEL, icon, 3.5)
+
 	return 3.5
 end
 
-function PlayerManager:upd_shallow_grave()
-	self.can_be_downed = self.can_be_downed or 1
-	local is_downed = game_state_machine:verify_game_state(GameStateFilters.downed)
-	local swan_song_active = managers.player:has_activate_temporary_upgrade("temporary", "berserker_damage_multiplier")
-	local player = self:player_unit()
-	
-	if self.shallow_grave then
-		if player then
-			if player:character_damage():armor_ratio() == 1 then
-				self.shallow_grave_revive = true
-				self.shallow_grave = nil
-				self.can_be_downed = 1
-			end
-			
-			if self.shallow_grave_activate_t and (TimerManager:game():time() - self.shallow_grave_activate_t > 3.5) then
-				if self.shallow_grave_revive then
-					self.shallow_grave_revive = 0
-				elseif is_downed or swan_song_active then
-					--nothing
-				elseif self.can_be_downed == 1 then
-					player:character_damage():force_into_bleedout(true)
-					self.can_be_downed = 0
-				end
-			end
+function PlayerManager:deactivate_shallow_grave()
+	self._shallow_grave = nil
+	self.shallow_grave_activate_t = nil
+	managers.hud:activate_teammate_ability_radial(HUDManager.PLAYER_PANEL, 0)
+end
+
+function PlayerManager:shallow_grave_revive()
+	if self._shallow_grave_revive then
+		self:deactivate_shallow_grave()
+	else
+		local player = self:player_unit()
+		if not player:character_damage():is_downed() then
+			self:player_unit():character_damage():force_into_bleedout(true)
 		end
+		self:deactivate_shallow_grave()
+	end
+end
+
+function PlayerManager:activate_shallow_grave_revive()
+	self._shallow_grave_revive = true
+end
+
+function PlayerManager:upd_shallow_grave()
+	local player = self:player_unit()
+	if player and player:character_damage():is_downed() then
+		self:deactivate_shallow_grave()
+		return
+	end
+	if self._shallow_grave and self.shallow_grave_activate_t and (TimerManager:game():time() - self.shallow_grave_activate_t > 3.5) then
+		-- self:player_unit():character_damage():set_invulnerable(false)
+		self:shallow_grave_revive()
+	end
+end
+
+
+--Sicario-------------------------------------------------------------------------------------------
+function PlayerManager:_dodge_shot_gain(gain_value)
+	self.last_dodge_time = self.last_dodge_time or 0
+	local cooldown = self:has_category_upgrade("player", "dodge_shot_gain") and self:upgrade_value("player", "dodge_shot_gain")[2]
+	local t = TimerManager:game():time()
+
+	if gain_value and gain_value == 0 then
+		self._dodge_shot_gain_value = 0
+		self.last_dodge_time = t
+	elseif gain_value and t > self.last_dodge_time + cooldown then
+		self._dodge_shot_gain_value = gain_value
+	else
+		return self._dodge_shot_gain_value or 0
 	end
 end
