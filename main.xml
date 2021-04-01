@@ -1,4 +1,4 @@
-<table name="Perk Deck Rebalances Developer" author="TattlingJam" image="oryo" color="Color(0,1,0.95)" min_lib_ver="3.38">
+<table name="Perk Deck Rebalances Developer" author="TattlingJam" color="Color(0.498,0.894,0.784)" min_lib_ver="3.38">
     <AddFiles directory="assets">
         <effect path="effects\particles\explosions\smoke_screen"/>
     </AddFiles>
