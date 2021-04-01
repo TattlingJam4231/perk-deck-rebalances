@@ -1,4 +1,4 @@
-Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
+Hooks:Add("LocalizationManagerPostInit", "PDRd Localization", function(loc)
 	LocalizationManager:add_localized_strings({
         
         --Crew Chief-------------------------------------------------------------------------------
