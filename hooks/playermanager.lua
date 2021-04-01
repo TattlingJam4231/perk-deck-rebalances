@@ -189,6 +189,28 @@ function PlayerManager:health_regen()
 	health_regen = health_regen + self:get_hostage_bonus_addend("health_regen")
 	health_regen = health_regen + self:upgrade_value("player", "passive_health_regen", 0)
 
+
+	--Stoic----------------------------------------------------------------------------------------
+	health_regen = health_regen * self:upgrade_value("player", "damage_control_reduced_regen", 1)
+	--Stoic----------------------------------------------------------------------------------------
+
+
+	return health_regen
+end
+
+function PlayerManager:fixed_health_regen(health_ratio)
+	local health_regen = 0
+
+	if not health_ratio or not self:is_damage_health_ratio_active(health_ratio) then
+		health_regen = health_regen + self:upgrade_value("team", "crew_health_regen", 0)
+	end
+
+
+	--Stoic----------------------------------------------------------------------------------------
+	health_regen = health_regen * self:upgrade_value("player", "damage_control_reduced_regen", 1)
+	--Stoic----------------------------------------------------------------------------------------
+
+
 	return health_regen
 end
 

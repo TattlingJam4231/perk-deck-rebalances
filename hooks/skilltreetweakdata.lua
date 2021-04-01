@@ -35,4 +35,7 @@ Hooks:PostHook(SkillTreeTweakData, "init", "PDR SkillTreeTweakData itit", functi
 	table.remove(self.specializations[14][5].upgrades, 1)
 	table.insert(self.specializations[14][5].upgrades, "player_cocaine_stacks_damaged_2")
 	table.insert(self.specializations[14][7].upgrades, "player_cocaine_stacks_damage_reduction_2")
+	
+	--Stoic
+	table.insert(self.specializations[19][1].upgrades, "player_damage_control_reduced_regen")
 end)

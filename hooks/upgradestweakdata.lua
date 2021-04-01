@@ -314,4 +314,17 @@ Hooks:PostHook(UpgradesTweakData, "init", "PDR UpgradesTweakData init", function
 			4
 		}
 	}
+
+
+	--Stoic--------------------------------------------------------------------------------------
+	self.definitions.player_damage_control_reduced_regen = {
+		name_id = "menu_player_damage_control_reduced_regen",
+		category = "feature",
+		upgrade = {
+			value = 1,
+			upgrade = "damage_control_reduced_regen",
+			category = "player"
+		}
+	}
+	self.values.player.damage_control_reduced_regen = {0.5}
 end)
