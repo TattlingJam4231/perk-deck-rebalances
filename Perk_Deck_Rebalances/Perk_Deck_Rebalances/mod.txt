@@ -5,7 +5,7 @@
 "version" : "1.0",
 "blt_version" : 2,
 "image" : "oryo.png",
-"color" : "0.86 0.40 0.92",
+"color" : "0.929 0.733 0.953",
 "updates" : [
 	{
 		"identifier" : "TattlingJam4231PerkDeckRebalances",
