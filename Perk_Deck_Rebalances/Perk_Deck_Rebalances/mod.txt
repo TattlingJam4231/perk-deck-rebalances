@@ -5,5 +5,13 @@
 "version" : "1.0",
 "blt_version" : 2,
 "image" : "oryo.png",
-"color" : "0.86 0.40 0.92"
+"color" : "0.86 0.40 0.92",
+"updates" : [
+	{
+		"identifier" : "TattlingJam4231PerkDeckRebalances",
+		"host" : {
+			"meta" : "https://github.com/TattlingJam4231/perk-deck-rebalances/raw/master/Perk_Deck_Rebalances/meta.json"
+		}
+	}
+]
 }
