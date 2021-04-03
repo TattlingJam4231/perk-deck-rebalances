@@ -111,6 +111,27 @@ Hooks:PostHook(UpgradesTweakData, "init", "PDR UpgradesTweakData init", function
 		0.20,
 		0.30
 	}
+	
+	
+	--Hitman----------------------------------------------------------------------------------------
+	self.values.player.perk_armor_regen_timer_multiplier = {
+		0.90,
+		0.80,
+		0.70,
+		0.60,
+		0.50
+	}
+	
+	self.definitions.akimbo_fire_rate_multiplier = {
+		name_id = "menu_akimbo_fire_rate_multiplier",
+		category = "feature",
+		upgrade = {
+			value = 1,
+			upgrade = "fire_rate_multiplier",
+			category = "akimbo"
+		}
+	}
+	self.values.akimbo.fire_rate_multiplier = {1.25}
 
 
 	--Burglar--------------------------------------------------------------------------------------
