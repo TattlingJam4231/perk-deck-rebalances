@@ -14,6 +14,10 @@ Hooks:PostHook(SkillTreeTweakData, "init", "PDR SkillTreeTweakData itit", functi
 	table.insert(self.specializations[3][3].upgrades, "player_armorer_damage_reduction_threshold_1")
 	table.insert(self.specializations[3][5].upgrades, "player_armorer_damage_reduction_threshold_2")
 	table.insert(self.specializations[3][9].upgrades, "player_armorer_damage_reduction_threshold_3")
+
+	--Hitman
+	table.insert(self.specializations[5][5].upgrades, "weapon_passive_swap_speed_multiplier_2")
+	table.insert(self.specializations[5][7].upgrades, "akimbo_fire_rate_multiplier")
 	
 	--Gambler
 	table.remove(self.specializations[10][7].upgrades, 1)
