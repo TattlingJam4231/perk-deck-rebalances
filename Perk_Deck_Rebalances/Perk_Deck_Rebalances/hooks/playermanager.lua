@@ -263,15 +263,17 @@ end
 function PlayerManager:skill_dodge_chance(running, crouching, on_zipline, override_armor, detection_risk)
 	local chance = self:upgrade_value("player", "passive_dodge_chance", 0)
 	local dodge_shot_gain = self:_dodge_shot_gain()
+	local smoked = false
 
 	for _, smoke_screen in ipairs(self._smoke_screen_effects or {}) do
-		if smoke_screen:is_in_smoke(self:player_unit()) then
+		if smoke_screen:is_in_smoke(self:player_unit()) and not smoked then
 			if smoke_screen:mine() then
 				chance = chance * self:upgrade_value("player", "sicario_multiplier", 1)
 				dodge_shot_gain = dodge_shot_gain * self:upgrade_value("player", "sicario_multiplier", 1)
 			else
 				chance = chance + smoke_screen:dodge_bonus()
 			end
+			smoked = true
 		end
 	end
 
@@ -282,7 +284,6 @@ function PlayerManager:skill_dodge_chance(running, crouching, on_zipline, overri
 	--Ex-President---------------------------------------------------------------------------------
 	chance = chance + self:upgrade_value("player", "president_dodge_chance", 0)
 	--Ex-President---------------------------------------------------------------------------------
-
 
 
 	if running then
