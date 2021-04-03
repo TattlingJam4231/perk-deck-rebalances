@@ -237,6 +237,8 @@ Now:
      - Value Tweaks:
        - smoke bomb cooldown is now 45(down from 60) seconds
        - now grants 2 smoke bombs(up from 1)
+   - card 3
+     - effect now matches description
 
 ## Stoic
    - card 1
