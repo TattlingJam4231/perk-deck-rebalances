@@ -26,6 +26,18 @@
      - The damage reduction granted hear takes place after all other damage reduction and before damage absorption
      - This damage reduction works as follows: If you were to take 360 damage, the first 60 points of damage are not reduced, the 60 points of damage between 60 and 120 would be reduced by 20% down to 48, the 60 points of damage between 120 and 180 would be reduced by 50% down to 30, the 120 points of damage between 180 and 300 would be reduced by 85% down to 18, then the remaining 60 damage adove 300 is not reduced. This leaves you taking 216 damage.
 
+## Hitman
+   - card 1
+     - Value Tweaks:
+       - grants 10%(up from 5%) armor recovery rate
+   - card 5
+     - Additions:
+       - grants 80% weapon swap speed
+   - card 7
+     - Additions:
+       - grants 25% increased fire rate with akimbo weapons
+
+
 ## Crook
    - card 3 
      - Value Tweaks:
@@ -201,7 +213,7 @@ Now:
 
 ## Anarchist
    - card 9
-     - shows correct armor regen value
+     - description now shows correct armor regen value
 
 ## Biker
    - card 5
@@ -213,20 +225,32 @@ Now:
 
 ## Kingpin
    - card 1
-     - now correclty states the cooldown is reduced by 1 second for every kill
+     - description now correctly states the cooldown is reduced by 1 second for every kill
      - removed unnecessary text explaining perk deck throwable replacements
    - card 9
      - Value Tweaks:
-       - every 5 health gained over maximum reduces cooldown by 1 second, the card stated this previously but actually reduced the cooldown for every 50 health gained
+       - every 5 health gained over maximum reduces cooldown by 1 second, value now matches description
+
+## Sicario
+   - decreased the opacity of the smoke screen effect from smoke bomb
+   - card 1
+     - Value Tweaks:
+       - smoke bomb cooldown is now 45(down from 60) seconds
+       - now grants 2 smoke bombs(up from 1)
+
+## Stoic
+   - card 1
+     - Additions:
+       - reduces health regeneration effects by 50%
 
 ## Tag Team
    - card 1
-     - now states correct duration(12 seconds) and cooldown(60 seconds)
+     - description now states correct duration(12 seconds) and cooldown(60 seconds)
 
 ## Hacker
    - card 1
      - removed unnecessary text explaining perk deck throwable replacements
    - card 5
-     - now correctly states that it grants 15% dodge
+     - description now correctly states that it grants 15% dodge
    - card 9
-     - now correctly states that it grants 15% dodge
+     - description now correctly states that it grants 15% dodge
