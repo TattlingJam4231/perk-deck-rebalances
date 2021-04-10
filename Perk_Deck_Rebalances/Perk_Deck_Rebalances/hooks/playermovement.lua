@@ -12,7 +12,7 @@ function PlayerMovement:upd_meat_shield()
     
     local players_near = World:find_units("intersect", "sphere", my_pos, radius, player_mask)
 
-    if #players_near >= 1 then
+    if #players_near >= 2 then
         managers.player:activate_temporary_upgrade("temporary", "meat_shield_dmg_dampener")
     end
 end
