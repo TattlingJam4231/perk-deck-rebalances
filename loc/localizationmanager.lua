@@ -3,7 +3,7 @@ Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
 
         --Crew Chief-------------------------------------------------------------------------------
         ["menu_deck1_9_desc"] =     "You and your crew will gain ##6%## max health and ##12%## stamina for each hostage up to ##4## times.\n\n" ..
-                                    "You and your crew will gain ##8%## damage for having one or more hostages.\n\n" ..
+                                    "You and your crew will gain ##8%## damage reduction for having one or more hostages.\n\n" ..
                                     "You and your crew regenerate ##0.5%## health every ##5## seconds. You and your crew will regenerate an additional ##0.5%## health for each hostage up to ##4## times.\n\n" ..
                                     "Note: Crew perks do not stack.\n\n" ..
                                     "Deck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by ##10%##.",
