@@ -33,6 +33,11 @@ function PlayerDamage:damage_bullet(attack_data)
 		end
 	end
 
+	--Maniac---------------------------------------------------------------------------------------
+	pm:cocaine_stack_damage()
+	attack_data.damage = pm:cocaine_stack_damage_reduction(attack_data.damage)
+	--Maniac---------------------------------------------------------------------------------------
+
 	local damage_absorption = pm:damage_absorption()
 
 	if damage_absorption > 0 then
@@ -40,9 +45,6 @@ function PlayerDamage:damage_bullet(attack_data)
 	end
 	
 	
-	--Maniac---------------------------------------------------------------------------------------
-	attack_data.damage = pm:cocaine_stack_damage_reduction(attack_data.damage)
-	--Maniac---------------------------------------------------------------------------------------
 
 
 	if self._god_mode then
