@@ -510,7 +510,7 @@ function PlayerManager:cocaine_stack_damage_reduction(damage)
 	local local_peer_id = managers.network:session() and managers.network:session():local_peer():id()
 
 	if not local_peer_id or not self:has_category_upgrade("player", "cocaine_stacking") then
-		return
+		return damage
 	end
 	
 	local cocaine_stack = self:get_synced_cocaine_stacks(local_peer_id)
