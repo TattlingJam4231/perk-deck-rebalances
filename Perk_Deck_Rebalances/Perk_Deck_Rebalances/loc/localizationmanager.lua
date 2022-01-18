@@ -61,6 +61,11 @@ Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
                                     "You answer pagers ##10%## faster.",
 
 
+        --Infiltrator------------------------------------------------------------------------------
+        --[[ ["menu_deck8_3_desc"] =    "When you are within medium range of an enemy, you receive an additional ##8%## less damage from enemies.\n\n" ..
+                                    "The OVERDOG melee buff duration is increased by ##6## seconds.", ]]
+
+
         --Gambler----------------------------------------------------------------------------------
         ["menu_deck10_1_desc"] = 	"Ammo packs you pick up also yield Medical Supplies.\n\n" ..
 									"Medical Supplies:\n" ..
@@ -139,6 +144,10 @@ Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
                                     "While in game you can use the throwable key to activate the Injector. Activating the Injector will heal you with ##75%## of all damage taken for ##6## seconds.\n\n" ..
                                     "You can still take damage during the effect. The Injector can only be used once every ##30## seconds. The cooldown is reduced by ##1## second per enemy killed.",
 
+        --[[ ["menu_deck17_9_desc"] =   "You gain ##40%## more health.\n\n" ..
+                                    "For every ##50## points of health gained during the Injector effect while at maximum health, the recharge time of the injector is reduced by ##1## second.\n\n" ..
+                                    "Deck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by ##10%##.", ]]
+
 
         --Sicario----------------------------------------------------------------------------------
         ["menu_deck18_1_desc"] =    "Unlocks and equips the thowable Smoke Bomb.\n\n" ..
@@ -154,7 +163,7 @@ Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
                                     "The ##75%## reduced damage will be applied over-time (##12## seconds) instead.\n\n" ..
                                     "You can use the throwable key to activate the Stoic Hip Flask and immediately negate any pending damage. " ..
                                     "The flask has a ##10## second cooldown but time remaining will be lessened by ##1## second per enemy killed.\n\n" ..
-                                    "Note: Regeneration effects on you are reduced by ##50%##.",
+                                    "Note: Regeneration effects on you are reduced by ##25%##.",
 
 
         --Tag Team---------------------------------------------------------------------------------
