@@ -163,7 +163,7 @@ Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
                                     "The ##75%## reduced damage will be applied over-time (##12## seconds) instead.\n\n" ..
                                     "You can use the throwable key to activate the Stoic Hip Flask and immediately negate any pending damage. " ..
                                     "The flask has a ##10## second cooldown but time remaining will be lessened by ##1## second per enemy killed.\n\n" ..
-                                    "Note: Regeneration effects on you are reduced by ##50%##.",
+                                    "Note: Regeneration effects on you are reduced by ##25%##.",
 
 
         --Tag Team---------------------------------------------------------------------------------

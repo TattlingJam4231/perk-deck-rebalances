@@ -347,5 +347,5 @@ Hooks:PostHook(UpgradesTweakData, "init", "PDR UpgradesTweakData init", function
 			category = "player"
 		}
 	}
-	self.values.player.damage_control_reduced_regen = {0.5}
+	self.values.player.damage_control_reduced_regen = {0.75}
 end)
