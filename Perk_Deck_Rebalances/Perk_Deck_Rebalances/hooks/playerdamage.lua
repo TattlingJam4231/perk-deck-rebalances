@@ -44,8 +44,7 @@ function PlayerDamage:damage_bullet(attack_data)
 		attack_data.damage = math.max(0, attack_data.damage - damage_absorption)
 	end
 	
-	
-
+	self:copr_update_attack_data(attack_data)
 
 	if self._god_mode then
 		if attack_data.damage > 0 then
@@ -227,6 +226,7 @@ function PlayerDamage:damage_explosion(attack_data)
 	attack_data.damage = managers.modifiers:modify_value("PlayerDamage:OnTakeExplosionDamage", attack_data.damage)
 	attack_data.damage = managers.player:modify_value("damage_taken", attack_data.damage, attack_data)
 
+	self:copr_update_attack_data(attack_data)
 	self:_check_chico_heal(attack_data)
 
 	local armor_subtracted = self:_calc_armor_damage(attack_data)
@@ -388,7 +388,7 @@ function PlayerDamage:_on_revive_event()
 	self.swansong = nil
 end
 
-function PlayerDamage:_check_bleed_out(can_activate_berserker, ignore_movement_state)
+function PlayerDamage:_check_bleed_out(can_activate_berserker, ignore_movement_state, ignore_reduce_revive)
 	if self:get_real_health() == 0 and not self._check_berserker_done then
 		if self._unit:movement():zipline_unit() then
 			self._bleed_out_blocked_by_zipline = true
@@ -399,6 +399,10 @@ function PlayerDamage:_check_bleed_out(can_activate_berserker, ignore_movement_s
 		if not ignore_movement_state and self._unit:movement():current_state():bleed_out_blocked() then
 			self._bleed_out_blocked_by_movement_state = true
 
+			return
+		end
+
+		if managers.player:has_activate_temporary_upgrade("temporary", "copr_ability") and managers.player:has_category_upgrade("player", "copr_out_of_health_move_slow") then
 			return
 		end
 
@@ -418,7 +422,7 @@ function PlayerDamage:_check_bleed_out(can_activate_berserker, ignore_movement_s
 		--Yakuza-----------------------------------------------------------------------------------
 
 
-		if not self._block_medkit_auto_revive and time > self._uppers_elapsed + self._UPPERS_COOLDOWN then
+		if not self._block_medkit_auto_revive and not ignore_reduce_revive and time > self._uppers_elapsed + self._UPPERS_COOLDOWN then
 			local auto_recovery_kit = FirstAidKitBase.GetFirstAidKit(self._unit:position())
 
 			if auto_recovery_kit then
@@ -458,7 +462,12 @@ function PlayerDamage:_check_bleed_out(can_activate_berserker, ignore_movement_s
 		SoundDevice:set_rtpc("downed_state_progression", 0)
 
 		if not self._check_berserker_done or not can_activate_berserker then
-			self._revives = Application:digest_value(Application:digest_value(self._revives, false) - 1, true)
+			if not ignore_reduce_revive then
+				self._revives = Application:digest_value(Application:digest_value(self._revives, false) - 1, true)
+
+				self:_send_set_revives()
+			end
+			
 			self._check_berserker_done = nil
 
 			managers.environment_controller:set_last_life(Application:digest_value(self._revives, false) <= 1)
