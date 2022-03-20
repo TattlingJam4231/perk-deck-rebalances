@@ -238,6 +238,10 @@ function PlayerDamage:damage_explosion(attack_data)
 end
 
 function PlayerDamage:damage_fire(attack_data)
+	if attack_data.is_hit then
+		return self:damage_fire_hit(attack_data)
+	end
+
 	if not self:_chk_can_take_dmg() then
 		return
 	end
