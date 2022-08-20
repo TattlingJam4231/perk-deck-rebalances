@@ -73,10 +73,10 @@ Hooks:Add("LocalizationManagerPostInit", "PDR Localization", function(loc)
 									"This is increased by ##20%## on the Gambler for every player that has more health than the Gambler. " ..
 									"You cannot pick up Medical Supplies more than once every ##2.5## seconds.",
 
-		["menu_deck10_3_desc"] = 	"Medical Supplies have ##25%## chance to trigger an ammo pickup for other players in your team.\n\n" ..
+		["menu_deck10_3_desc"] = 	"Medical Supplies have a ##25%## chance to trigger an ammo pickup for other players in your team.\n\n" ..
 									"You gain ##20%## more health.",
 
-        ["menu_deck10_5_desc"] = 	"Medical Supplies heal your teammates for ##50%## of the ammount.\n\n" ..
+        ["menu_deck10_5_desc"] = 	"Medical Supplies heal your teammates for ##50%## of the amount.\n\n" ..
 									"You gain ##20%## more health.",
 
 		["menu_deck10_7"] = 		"More Healing",
