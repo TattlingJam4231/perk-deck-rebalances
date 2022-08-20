@@ -3,6 +3,7 @@
 "description" : "",
 "author" : "TattlingJam4231",
 "version" : "1.0",
+"priority" : 800,
 "blt_version" : 2,
 "image" : "oryo.png",
 "color" : "0.498 0.894 0.784"
